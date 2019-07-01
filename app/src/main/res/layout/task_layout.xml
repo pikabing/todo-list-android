@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardElevation="8dp"
+    app:cardElevation="10dp"
     app:cardCornerRadius="10dp"
-    app:rippleColor="@color/colorAccent"
+    android:padding="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -26,13 +26,15 @@
 
         <TextView
             android:id="@+id/taskTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="18sp"
+            android:textSize="15sp"
             app:fontFamily="@font/antic"
             android:textStyle="bold"
-            tools:text="Description" />
+            tools:text="Description"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
 
         <TextView
@@ -40,7 +42,7 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:ellipsize="end"
             android:maxLines="1"
             app:fontFamily="@font/antic"
@@ -54,10 +56,11 @@
         android:id="@+id/taskUpdatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="15sp"
+        android:textSize="13sp"
         app:fontFamily="@font/antic"
         tools:text="11/11/1111" />
 
@@ -65,17 +68,25 @@
         android:id="@+id/priorityTextView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/priority_circle"
         android:backgroundTint="@color/colorAccent"
         android:gravity="end|center_vertical"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
+        android:textSize="13sp"
         tools:text="1"
         app:fontFamily="@font/antic"
         tools:targetApi="lollipop" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_baseline_drag_handle_24px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 

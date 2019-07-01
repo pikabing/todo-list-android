@@ -147,21 +147,27 @@ public class AddTaskActivity extends AppCompatActivity {
         int priority = getPriorityFromViews();
         Date date = new Date();
 
-        final TaskEntry task = new TaskEntry(title, description, priority, date);
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (mTaskId == DEFAULT_TASK_ID) {
-                    // insert new task
-                    mDb.taskDao().insertTask(task);
-                } else {
-                    //update task
-                    task.setId(mTaskId);
-                    mDb.taskDao().updateTask(task);
+        if (title.length() > 15 || title.equals("")) {
+            mEditText.setError("Error");
+        } else if(description.equals("") || description.length() > 100) {
+            mDescription.setError("Error");
+        } else {
+            final TaskEntry task = new TaskEntry(title, description, priority, date);
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (mTaskId == DEFAULT_TASK_ID) {
+                        // insert new task
+                        mDb.taskDao().insertTask(task);
+                    } else {
+                        //update task
+                        task.setId(mTaskId);
+                        mDb.taskDao().updateTask(task);
+                    }
+                    finish();
                 }
-                finish();
-            }
-        });
+            });
+        }
     }
 
     /**

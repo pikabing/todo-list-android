@@ -20,6 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:hint="@string/edit_task_title"
+        app:counterMaxLength="15"
+        app:errorEnabled="true"
+        app:counterEnabled="true"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -40,6 +43,9 @@
         android:layout_height="100dp"
         android:layout_margin="4dp"
         android:hint="@string/edit_task_description"
+        app:errorEnabled="true"
+        app:counterMaxLength="100"
+        app:counterEnabled="true"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -48,6 +54,7 @@
             android:layout_height="match_parent"
             android:inputType="textCapSentences"
             android:imeOptions="actionDone"
+            android:gravity="start"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -63,7 +70,7 @@
         android:text="@string/priority_string"
         android:textAlignment="center"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:fontFamily="@font/merriweather_sans_light"
         android:textStyle="bold"/>
 
@@ -71,7 +78,7 @@
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
             android:orientation="horizontal"
@@ -119,7 +126,7 @@
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
         android:text="@string/add_button"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:padding="10dp"
         app:cornerRadius="8dp"
         app:fontFamily="@font/merriweather_sans_light"
