@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    This vertical linear layout contains all the views in the AddTaskActivity code.
+    This includes an EditText to adtaskEntrytask description, and buttons to select a priority
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    >
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Shrine.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:hint="@string/edit_task_title"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Shrine.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="4dp"
+        android:hint="@string/edit_task_description"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/descriptionOfTask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textCapSentences"
+            android:imeOptions="actionDone"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- TextView and FrameLayout (which contains buttons) for Priority Selection -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/priority_string"
+        android:textAlignment="center"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="20sp"
+        app:fontFamily="@font/merriweather_sans_light"
+        android:textStyle="bold"/>
+
+        <!-- RadioGroup for visible selection of a priority -->
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/radButton1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/materialRed"
+                android:checked="true"
+                android:text="@string/high_priority"
+                app:fontFamily="@font/merriweather_sans_light"
+                android:theme="@style/WhiteRadioButton" />
+
+            <RadioButton
+                android:id="@+id/radButton2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/materialOrange"
+                android:text="@string/med_priority"
+                app:fontFamily="@font/merriweather_sans_light"
+                android:theme="@style/WhiteRadioButton" />
+
+            <RadioButton
+                android:id="@+id/radButton3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/materialYellow"
+                android:text="@string/low_priority"
+                app:fontFamily="@font/merriweather_sans_light"
+                android:theme="@style/WhiteRadioButton" />
+
+        </RadioGroup>
+
+    <!-- Add button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/saveButton"
+        style="@style/Widget.Shrine.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:text="@string/add_button"
+        android:textSize="20sp"
+        android:padding="10dp"
+        app:cornerRadius="8dp"
+        app:fontFamily="@font/merriweather_sans_light"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

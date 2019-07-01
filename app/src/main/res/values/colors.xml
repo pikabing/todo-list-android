@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- colors for general appearance -->
+    <color name="colorPrimary">@color/colorAccent</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#C5CAE9</color>
+    <color name="colorAccent">#fd5523</color>
+
+    <!-- colors taskEntrytask priority selection -->
+    <color name="materialRed">#356859</color>
+    <color name="materialOrange">#37966f</color>
+    <color name="materialYellow">#b9e4c9</color>
+    <color name="basilCream">#FFFbe6</color>
+    <color name="purple">#720d5d</color>
+    <color name="red">#f00</color>
+
+
+</resources>
