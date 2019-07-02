@@ -18,6 +18,7 @@ package com.example.android.todolist;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +104,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Get the appropriate background color based on the priority
         int priorityColor = getPriorityColor(priority);
         priorityCircle.setColor(priorityColor);
+
     }
 
     /*

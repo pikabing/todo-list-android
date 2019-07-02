@@ -19,6 +19,7 @@ package com.example.android.todolist;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,7 +27,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,8 +92,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
          and uses callbacks to signal when a user is performing these actions.
          */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN
-                , ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
+                , ItemTouchHelper.RIGHT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -104,6 +106,13 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
             }
 
 
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+
+
             // Called when a user swipes left or right on a ViewHolder
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -111,33 +120,39 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
                 final TaskEntry deletedItem = tasks.get(viewHolder.getAdapterPosition());
                 final int deletedIndex = viewHolder.getAdapterPosition();
+                if (swipeDir == 8) {
+                    // remove the item from recycler view
+                    final int position = viewHolder.getAdapterPosition();
+                    mAdapter.removeItem(position);
+                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mDb.taskDao().deleteTask(deletedItem);
+                        }
+                    });
 
-                // remove the item from recycler view
-                final int position = viewHolder.getAdapterPosition();
-                mAdapter.removeItem(position);
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        mDb.taskDao().deleteTask(deletedItem);
-                    }
-                });
+                    // showing snack bar with Undo option
+                    Snackbar snackbar = Snackbar
+                            .make(coordinatorLayout, deletedItem.getTitle() + " removed!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                mDb.taskDao().insertTask(deletedItem);
+                                }
+                            });
+                            // undo is selected, restore the deleted item
+                            mAdapter.restoreItem(deletedItem, deletedIndex);
+                        }
+                    });
+                    snackbar.setActionTextColor(Color.YELLOW);
+                    snackbar.setAnchorView(fabButton);
+                    snackbar.show();
+                } else if (swipeDir == 4) {
 
-                // showing snack bar with Undo option
-                Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, deletedItem.getTitle() + " removed!", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        // undo is selected, restore the deleted item
-                        mAdapter.restoreItem(deletedItem, deletedIndex);
-                    }
-                });
-                snackbar.setActionTextColor(Color.YELLOW);
-                snackbar.setAnchorView(fabButton);
-                snackbar.show();
-
-
+                }
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -180,4 +195,5 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         intent.putExtra(AddTaskActivity.EXTRA_TASK_ID, itemId);
         startActivity(intent);
     }
+
 }
