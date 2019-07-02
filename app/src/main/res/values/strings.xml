@@ -20,5 +20,8 @@
 
     <string name="add_button">Add</string>
     <string name="update_button">Update</string>
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="charging_reminder_notification_title">C\'mon, you have some tasks to do.</string>
+    <string name="charging_reminder_notification_body">Lets\'go!</string>
 
 </resources>

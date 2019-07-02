@@ -45,6 +45,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.android.todolist.database.AppDatabase;
 import com.example.android.todolist.database.TaskEntry;
@@ -54,6 +57,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener {
@@ -71,14 +75,15 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set the RecyclerView to its corresponding view
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(ReminderWorker.class, 900000 , TimeUnit.SECONDS,
+                2, TimeUnit.MINUTES).build();
+        WorkManager.getInstance().enqueue(periodicWorkRequest);
+
         mRecyclerView = findViewById(R.id.recyclerViewTasks);
         coordinatorLayout = findViewById(R.id.coordinator_layout);
-        // Set the layout for the RecyclerView to be a linear layout, which measures and
-        // positions items within a RecyclerView into a linear list
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new TaskAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
 
